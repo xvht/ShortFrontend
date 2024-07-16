@@ -6,6 +6,8 @@ await import("./src/env.js");
 
 /** @type {import("next").NextConfig} */
 const config = {
+  poweredByHeader: false,
+  reactStrictMode: true,
   experimental: {
     optimizeCss: true,
     turbo: {
@@ -20,8 +22,6 @@ const config = {
       ],
     },
   },
-  poweredByHeader: false,
-  reactStrictMode: true,
   async rewrites() {
     return [
       {
