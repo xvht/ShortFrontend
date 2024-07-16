@@ -30,8 +30,8 @@ const LocalizedAuthor: React.FC = () => {
   return (
     <p className="font-semibold">
       {author}{" "}
-      <a className="underline" href="https://github.com/devfxx" target="_blank">
-        @devfxx
+      <a className="underline" href="https://git.kty.lol/fxx" target="_blank">
+        @fxx
       </a>
     </p>
   );
