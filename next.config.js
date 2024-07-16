@@ -22,6 +22,14 @@ const config = {
   },
   poweredByHeader: false,
   reactStrictMode: true,
+  async rewrites() {
+    return [
+      {
+        source: "/:path",
+        destination: `${process.env.API_URL}/:path`,
+      },
+    ];
+  },
 };
 
 export default config;
