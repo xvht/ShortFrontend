@@ -25,7 +25,7 @@ const config = {
   async rewrites() {
     return [
       {
-        source: "/:path",
+        source: "/x/:path",
         destination: `${process.env.API_URL}/:path`,
       },
     ];

@@ -50,12 +50,12 @@ export default function ShortenComponent() {
 
       {shortened && (
         <a
-          href={`${env.NEXT_PUBLIC_BASE_URL}/${shortened.id}`}
+          href={`${env.NEXT_PUBLIC_BASE_URL}/x/${shortened.id}`}
           className="absolute bottom-40 text-blue-400 underline"
           target="_blank"
           rel="noreferrer noopener"
         >
-          {`${env.NEXT_PUBLIC_BASE_URL}/${shortened.id}`}
+          {`${env.NEXT_PUBLIC_BASE_URL}/x/${shortened.id}`}
         </a>
       )}
     </div>
