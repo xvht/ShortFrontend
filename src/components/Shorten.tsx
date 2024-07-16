@@ -1,5 +1,6 @@
 "use client";
 
+import { env } from "@/env";
 import Shorten from "@/server/API";
 import { type Response } from "@/types/Shorten";
 import { useState } from "react";
@@ -49,12 +50,12 @@ export default function ShortenComponent() {
 
       {shortened && (
         <a
-          href={shortened.link}
-          className="absolute bottom-40 text-purple-400 underline"
+          href={`${env.NEXT_PUBLIC_BASE_URL}/${shortened.id}`}
+          className="absolute bottom-40 text-blue-400 underline"
           target="_blank"
           rel="noreferrer noopener"
         >
-          {shortened.link}
+          {`${env.NEXT_PUBLIC_BASE_URL}/${shortened.id}`}
         </a>
       )}
     </div>
