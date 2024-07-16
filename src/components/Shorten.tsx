@@ -1,38 +1,46 @@
 "use client";
 
-import ShortenCall from "@/server/API";
-import { type Shorten } from "@/types/Shorten";
+import Shorten from "@/server/API";
+import { type Response } from "@/types/Shorten";
 import { useState } from "react";
+import { z } from "zod";
 
 export default function ShortenComponent() {
   const [link, setLink] = useState<string>("");
-  const [shortened, setShortened] = useState<Shorten | null>(null);
+  const [shortened, setShortened] = useState<Response | null>(null);
+
+  const shorten = async (link: string) => {
+    try {
+      const data = await Shorten(link);
+      if (!data) return;
+
+      setShortened(data);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-12 px-4 py-16">
+    <div className="flex flex-col items-center">
       <input
-        className="rounded-md bg-neutral-900 px-4 py-2 text-white outline-none"
+        className="absolute bottom-72 rounded-md bg-neutral-900 px-4 py-2 text-white outline-none"
         placeholder="Link"
         style={{
-          position: "absolute",
-          bottom: "35vh",
           width: "calc(35% - 2rem)",
           textAlign: "left",
         }}
         onChange={(e) => setLink(e.target.value)}
       />
       <button
-        className="rounded-md bg-neutral-900 px-4 py-2 text-white"
-        style={{
-          position: "absolute",
-          bottom: "27vh",
-        }}
+        className="absolute bottom-56 rounded-md bg-neutral-900 px-4 py-2 text-white"
         onClick={async () => {
           try {
-            const data = await ShortenCall(link);
-            setShortened(data);
+            if (!link) return;
+            if (!z.string().url().parse(link)) return; // this will throw if not valid url
+
+            await shorten(link);
           } catch (e) {
-            console.error(e);
+            return; // not a valid url
           }
         }}
       >
@@ -42,13 +50,9 @@ export default function ShortenComponent() {
       {shortened && (
         <a
           href={shortened.link}
-          className="text-purple-400 underline"
+          className="absolute bottom-40 text-purple-400 underline"
           target="_blank"
-          rel="noreferrer"
-          style={{
-            position: "absolute",
-            bottom: "20vh",
-          }}
+          rel="noreferrer noopener"
         >
           {shortened.link}
         </a>
